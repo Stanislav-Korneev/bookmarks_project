@@ -1,0 +1,94 @@
+[
+    {
+      "name": "Google",
+      "url": "http://www.google.com/"
+    },
+    {
+      "name": "Vk",
+      "url": "http://www.vk.com/"
+    },
+    {
+      "name": "Habr",
+      "url": "https://habr.com/ru/"
+    },
+    {
+      "name": "Streetartutopia",
+      "url": "https://www.streetartutopia.com/"
+    },
+    {
+      "name": "Kerntype",
+      "url": "https://type.method.ac/"
+    },
+    {
+      "name": "Glowee",
+      "url": "https://www.glowee.eu/"
+    },
+    {
+      "name": "Artstation",
+      "url": "https://www.artstation.com/"
+    },
+    {
+      "name": "Contemporary Daguerreotypes",
+      "url": "http://cdags.org/"
+    },
+    {
+      "name": "Packaging of the world",
+      "url": "https://www.packagingoftheworld.com/"
+    },
+    {
+      "name": "World History Atlas",
+      "url": "http://geacron.com/home-en/?&sid=GeaCron263614"
+    },
+    {
+      "name": "Czech President",
+      "url": "http://pussywalk.com/"
+    },
+    {
+      "name": "Ginger cookies",
+      "url": "https://www.edimdoma.ru/retsepty/48704-imbirnoe-pechenie"
+    },
+    {
+      "name": "Discogs",
+      "url": "https://www.discogs.com/"
+    },
+    {
+      "name": "Youtube",
+      "url": "https://www.youtube.com/"
+    },
+    {
+      "name": "Terraliving",
+      "url": "https://www.theterraliving.com/"
+    },
+    {
+      "name": "Clanadonia",
+      "url": "https://www.clanadonia.co.uk/"
+    },
+    {
+      "name": "Design squish",
+      "url": "http://www.blog.designsquish.com/"
+    },
+    {
+      "name": "Pink tentacle",
+      "url": "http://pinktentacle.com/"
+    },
+    {
+      "name": "Yandex music",
+      "url": "https://music.yandex.ru/"
+    },
+    {
+      "name": "Morrowind map",
+      "url": "https://mwmap.uesp.net/"
+    },
+    {
+      "name": "Vue.js",
+      "url": "https://ru.vuejs.org/"
+    },
+    {
+      "name": "Vuex",
+      "url": "https://vuex.vuejs.org/ru/"
+    },
+    {
+      "name": "Vue router",
+      "url": "https://router.vuejs.org/ru/"
+    }
+]
