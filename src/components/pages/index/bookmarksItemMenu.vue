@@ -1,10 +1,5 @@
 <template>
   <div class="menu">
-    <div
-      v-if="menuVisible"
-      @click="toggleMenu"
-      class="menu__backdrop"
-    />
     <div class="menu__wrapper">
       <button
         @click="toggleMenu"
@@ -40,6 +35,11 @@
         </li>
       </ul>
     </div>
+    <div
+      v-if="menuVisible"
+      @click="toggleMenu"
+      class="menu__backdrop"
+    />
   </div>
 </template>
 
