@@ -20,11 +20,11 @@ export default new Vuex.Store({
 
   mutations: {
     sortBookmarksByName(state) {
-      if (state.bookmarksSorted === true && state.bookmarks.length === state.bookmarksLength) {
+      if (state.bookmarksSorted && state.bookmarks.length === state.bookmarksLength) {
         state.bookmarks.reverse();
       } else {
+        state.bookmarksLength = state.bookmarks.length;
         state.bookmarks.sort((a, b) => {
-          state.bookmarksLength = state.bookmarks.length;
           if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
           return 0;
