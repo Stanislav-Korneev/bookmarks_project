@@ -2,6 +2,7 @@
   <div class="menu">
     <div class="menu__wrapper">
       <button
+        @keyup.esc="closeMenu"
         @click="toggleMenu"
         class="menu__button"
       />
@@ -11,6 +12,7 @@
       >
         <li>
           <button
+            @keyup.esc="closeMenu"
             @click="menuClick(['deleteBookmark', `${index}`])"
             class="menu__item"
           >
@@ -19,6 +21,7 @@
         </li>
         <li>
           <button
+            @keyup.esc="closeMenu"
             @click="menuClick(['editBookmark', `${index}`])"
             class="menu__item"
           >
@@ -27,6 +30,7 @@
         </li>
         <li>
           <button
+            @keyup.esc="closeMenu"
             @click="menuClick(['copyUrl', `${index}`])"
             class="menu__item"
           >
@@ -39,6 +43,8 @@
       v-if="menuVisible"
       @click="toggleMenu"
       class="menu__backdrop"
+      tabindex="0"
+      @focus="closeMenu"
     />
   </div>
 </template>
@@ -61,6 +67,9 @@ export default {
   methods: {
     toggleMenu() {
       this.menuVisible = !this.menuVisible;
+    },
+    closeMenu() {
+      this.menuVisible = false;
     },
     menuClick(action) {
       this.$emit('menu-click', action);
