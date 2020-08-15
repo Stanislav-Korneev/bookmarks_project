@@ -36,7 +36,7 @@
       <input
         @keyup="resetError"
         @keyup.enter="submitBookmark(bookmarkId)"
-        v-model="bookmarkUrl"
+        v-model.trim="bookmarkUrl"
         class="bookmark-form__item"
         type="text"
         id="url"
@@ -212,6 +212,7 @@ export default {
     color: $red;
     opacity: 0;
     transition: .3s;
+    cursor: default;
 
     &_active {
       opacity: 1;

@@ -55,11 +55,11 @@ export default new Vuex.Store({
     checkHttp(state) {
       const check = /^http:\/\/|^https:\/\//i;
       const check2 = /\/$/;
-      if (!check.test(state.bookmarkUrl.trim())) {
-        state.bookmarkUrl = `http://${state.bookmarkUrl.trim()}`;
+      if (!check.test(state.bookmarkUrl)) {
+        state.bookmarkUrl = `http://${state.bookmarkUrl}`;
       }
-      if (!check2.test(state.bookmarkUrl.trim())) {
-        state.bookmarkUrl = `${state.bookmarkUrl.trim()}/`;
+      if (!check2.test(state.bookmarkUrl)) {
+        state.bookmarkUrl = `${state.bookmarkUrl}/`;
       }
     },
 
