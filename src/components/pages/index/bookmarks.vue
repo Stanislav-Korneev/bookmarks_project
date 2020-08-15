@@ -1,5 +1,6 @@
 <template>
   <app-container class="bookmarks">
+    <sorting-panel class="bookmarks__sorting-panel" />
     <ul class="bookmarks__list">
       <slot />
     </ul>
@@ -8,10 +9,12 @@
 
 <script>
 import AppContainer from '@/components/general/AppContainer.vue';
+import sortingPanel from '@/components/pages/index/sortingPanel.vue';
 
 export default {
   components: {
     AppContainer,
+    sortingPanel,
   },
 };
 
@@ -19,6 +22,15 @@ export default {
 
 <style lang="scss" scoped>
 .bookmarks {
+
+  &__sorting-panel {
+    margin-left: auto;
+    margin-right: 10%;
+
+    @include mobile {
+      margin-right: auto;
+    }
+  }
 
   &__list {
     @include ul-reset;

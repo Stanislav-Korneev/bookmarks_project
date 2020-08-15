@@ -8,6 +8,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     bookmarks: BOOKMARKS_STORE,
+    bookmarksLength: BOOKMARKS_STORE.length,
+    bookmarksSorted: false,
     addMode: false,
     editMode: false,
     errorMessageVisible: false,
@@ -17,6 +19,20 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    sortBookmarksByName(state) {
+      if (state.bookmarksSorted === true && state.bookmarks.length === state.bookmarksLength) {
+        state.bookmarks.reverse();
+      } else {
+        state.bookmarks.sort((a, b) => {
+          state.bookmarksLength = state.bookmarks.length;
+          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+          if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+          return 0;
+        });
+      }
+      state.bookmarksSorted = true;
+    },
+
     // togglers
     toggleErrorMessage(state) {
       state.errorMessageVisible = !state.errorMessageVisible;

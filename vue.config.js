@@ -1,5 +1,6 @@
 const path = require('path');
 
+// Adding global styles into the project
 function addStyleResource(rule) {
   rule.use('style-resource')
     .loader('style-resources-loader')
