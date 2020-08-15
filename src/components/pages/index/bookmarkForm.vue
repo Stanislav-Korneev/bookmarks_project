@@ -5,7 +5,7 @@
       class="bookmark-form__close-button"
     />
     <h2 class="bookmark-form__header">
-      {{ (addMode) ? 'Add' : 'Edit' }} your bookmark
+      {{ addOrEdit }} your bookmark
     </h2>
     <form
       @submit.prevent="submitBookmark(bookmarkId)"
@@ -51,7 +51,7 @@
         type="submit"
         class="bookmark-form__button"
       >
-        {{ (addMode) ? 'Add' : 'Edit' }}
+        {{ addOrEdit }}
       </button>
     </form>
   </div>
@@ -62,6 +62,9 @@ import store from '@/store';
 
 export default {
   computed: {
+    addOrEdit() {
+      return (store.state.addMode) ? 'Add' : 'Edit';
+    },
     errorMessageVisible() {
       return store.state.errorMessageVisible;
     },
@@ -106,7 +109,6 @@ export default {
 
   directives: {
     focus: {
-      // определение директивы
       inserted(el) {
         el.focus();
       },
