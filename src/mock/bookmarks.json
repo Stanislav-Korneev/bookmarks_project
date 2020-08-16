@@ -1,94 +1,140 @@
 [
     {
       "name": "Google",
-      "url": "http://www.google.com/"
+      "url": "http://www.google.com/",
+      "addingDate": "2018-08-26",
+      "hits": "214"
     },
     {
       "name": "Vk",
-      "url": "http://www.vk.com/"
+      "url": "http://www.vk.com/",
+      "addingDate": "2020-07-05",
+      "hits": "149"
     },
     {
       "name": "Habr",
-      "url": "https://habr.com/ru/"
+      "url": "https://habr.com/ru/",
+      "addingDate": "2018-08-31",
+      "hits": "164"
     },
     {
       "name": "Streetartutopia",
-      "url": "https://www.streetartutopia.com/"
+      "url": "https://www.streetartutopia.com/",
+      "addingDate": "2020-09-07",
+      "hits": "121"
     },
     {
       "name": "Kerntype",
-      "url": "https://type.method.ac/"
+      "url": "https://type.method.ac/",
+      "addingDate": "2018-08-05",
+      "hits": "320"
     },
     {
       "name": "Glowee",
-      "url": "https://www.glowee.eu/"
+      "url": "https://www.glowee.eu/",
+      "addingDate": "2018-06-24",
+      "hits": "1"
     },
     {
       "name": "Artstation",
-      "url": "https://www.artstation.com/"
+      "url": "https://www.artstation.com/",
+      "addingDate": "2020-11-08",
+      "hits": "321"
     },
     {
       "name": "Contemporary Daguerreotypes",
-      "url": "http://cdags.org/"
+      "url": "http://cdags.org/",
+      "addingDate": "2019-12-04",
+      "hits": "156"
     },
     {
       "name": "Packaging of the world",
-      "url": "https://www.packagingoftheworld.com/"
+      "url": "https://www.packagingoftheworld.com/",
+      "addingDate": "2020-04-20",
+      "hits": "345"
     },
     {
       "name": "World History Atlas",
-      "url": "http://geacron.com/home-en/?&sid=GeaCron263614"
+      "url": "http://geacron.com/home-en/?&sid=GeaCron263614",
+      "addingDate": "2019-05-24",
+      "hits": "15"
     },
     {
       "name": "Czech President",
-      "url": "http://pussywalk.com/"
+      "url": "http://pussywalk.com/",
+      "addingDate": "2018-10-08",
+      "hits": "321"
     },
     {
       "name": "Ginger cookies",
-      "url": "https://www.edimdoma.ru/retsepty/48704-imbirnoe-pechenie"
+      "url": "https://www.edimdoma.ru/retsepty/48704-imbirnoe-pechenie",
+      "addingDate": "2018-05-21",
+      "hits": "125"
     },
     {
       "name": "Discogs",
-      "url": "https://www.discogs.com/"
+      "url": "https://www.discogs.com/",
+      "addingDate": "2018-04-30",
+      "hits": "412"
     },
     {
       "name": "Youtube",
-      "url": "https://www.youtube.com/"
+      "url": "https://www.youtube.com/",
+      "addingDate": "2017-12-24",
+      "hits": "65"
     },
     {
       "name": "Terraliving",
-      "url": "https://www.theterraliving.com/"
+      "url": "https://www.theterraliving.com/",
+      "addingDate": "2018-06-08",
+      "hits": "154"
     },
     {
       "name": "Clanadonia",
-      "url": "https://www.clanadonia.co.uk/"
+      "url": "https://www.clanadonia.co.uk/",
+      "addingDate": "2017-10-27",
+      "hits": "152"
     },
     {
       "name": "Design squish",
-      "url": "http://www.blog.designsquish.com/"
+      "url": "http://www.blog.designsquish.com/",
+      "addingDate": "2019-01-27",
+      "hits": "163"
     },
     {
       "name": "Pink tentacle",
-      "url": "http://pinktentacle.com/"
+      "url": "http://pinktentacle.com/",
+      "addingDate": "2019-04-03",
+      "hits": "120"
     },
     {
       "name": "Yandex music",
-      "url": "https://music.yandex.ru/"
+      "url": "https://music.yandex.ru/",
+      "addingDate": "2017-11-20",
+      "hits": "236"
     },
     {
       "name": "Morrowind map",
-      "url": "https://mwmap.uesp.net/"
+      "url": "https://mwmap.uesp.net/",
+      "addingDate": "2019-03-17",
+      "hits": "24"
     },
     {
       "name": "Vue.js",
-      "url": "https://ru.vuejs.org/"
+      "url": "https://ru.vuejs.org/",
+      "addingDate": "2019-03-14",
+      "hits": "512"
     },
     {
       "name": "Vuex",
-      "url": "https://vuex.vuejs.org/ru/"
+      "url": "https://vuex.vuejs.org/ru/",
+      "addingDate": "2020-12-24",
+      "hits": "532"
     },
     {
       "name": "Vue router",
-      "url": "https://router.vuejs.org/ru/"
+      "url": "https://router.vuejs.org/ru/",
+      "addingDate": "2020-02-26",
+      "hits": "541"
     }
 ]
