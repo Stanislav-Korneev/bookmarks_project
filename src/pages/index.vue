@@ -10,6 +10,7 @@
     <bookmarks class="index-page__bookmarks">
       <template v-for="(item, index) in bookmarks">
         <bookmarks-item
+          @increment-hits="incrementHits"
           v-if="item"
           :key="index"
           v-bind="item"
@@ -68,6 +69,10 @@ export default {
   methods: {
     addBookmark() {
       if (!this.addMode) store.dispatch('addBookmark');
+    },
+
+    incrementHits(index) {
+      store.commit('incrementHits', index);
     },
 
     executeMenuButton(action) {

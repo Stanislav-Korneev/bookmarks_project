@@ -18,6 +18,8 @@ export default new Vuex.Store({
     bookmarkName: '',
     bookmarkUrl: '',
     bookmarkId: null,
+    bookmarkHits: 0,
+    bookmarkAddingDate: '',
   },
 
   mutations: {
@@ -44,16 +46,25 @@ export default new Vuex.Store({
       state.bookmarkUrl = url;
     },
 
+    // incrementing hits of an item when its link is hit
+    incrementHits(state, index) {
+      state.bookmarks[index].hits += 1;
+    },
+
     // adding and resetting item-cash properties
     setNameUrlId(state, n) {
       state.bookmarkName = state.bookmarks[n].name;
       state.bookmarkUrl = state.bookmarks[n].url;
+      state.bookmarkHits = state.bookmarks[n].hits;
+      state.bookmarkAddingDate = state.bookmarks[n].addingDate;
       state.bookmarkId = n;
     },
 
     resetNameUrlId(state) {
       state.bookmarkName = '';
       state.bookmarkUrl = '';
+      state.bookmarkHits = 0;
+      state.bookmarkAddingDate = '';
       state.bookmarkId = null;
     },
 
@@ -74,11 +85,14 @@ export default new Vuex.Store({
       const bookmarksObj = {
         name: state.bookmarkName,
         url: state.bookmarkUrl.trim(),
+        hits: state.bookmarkHits,
       };
       if (state.editMode) {
+        bookmarksObj.addingDate = state.bookmarkAddingDate;
         state.bookmarks.splice(n, 1, bookmarksObj);
       }
       if (state.addMode) {
+        bookmarksObj.addingDate = new Date().toJSON();
         state.bookmarks.unshift(bookmarksObj);
       }
     },

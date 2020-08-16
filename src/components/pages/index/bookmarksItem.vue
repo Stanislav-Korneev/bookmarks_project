@@ -7,6 +7,7 @@
       />
     </div>
     <a
+      @click="incrementHits(index)"
       class="bookmarks-item__link"
       :href="url"
       target="_blank"
@@ -41,6 +42,12 @@ export default {
   computed: {
     favicon() {
       return `http://www.google.com/s2/favicons?domain_url=${this.url}`;
+    },
+  },
+
+  methods: {
+    incrementHits(index) {
+      this.$emit('increment-hits', index);
     },
   },
 };
