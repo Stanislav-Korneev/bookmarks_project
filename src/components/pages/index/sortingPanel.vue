@@ -8,11 +8,13 @@
     Name
   </button>
   <button
+    @click="sortBookmarks('sortBookmarksByDate')"
     class="sorting-panel__button"
   >
     Date
   </button>
   <button
+    @click="sortBookmarks('sortBookmarksByActivity')"
     class="sorting-panel__button"
   >
     Activity

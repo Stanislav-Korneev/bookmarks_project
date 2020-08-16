@@ -17,9 +17,9 @@ export default new Vuex.Store({
     errorMessageVisible: false,
     bookmarkName: '',
     bookmarkUrl: '',
-    bookmarkId: null,
     bookmarkHits: 0,
     bookmarkAddingDate: '',
+    bookmarkId: null,
   },
 
   mutations: {
@@ -119,6 +119,52 @@ export default new Vuex.Store({
           if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
           if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
           return 0;
+        });
+
+        // if array was altered during reversed sorting, implement reversed filter again
+        if (state.bookmarksSorted.reverse) state.bookmarks.reverse();
+      }
+    },
+
+    sortBookmarksByDate(state) {
+      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== 'sortBookmarksByDate') {
+        state.bookmarksSorted.reverse = false;
+      }
+
+      // check if array has been already sorted by date and only reversing is needed
+      if (state.bookmarksSorted.name === 'sortBookmarksByDate') {
+        state.bookmarks.reverse();
+        state.bookmarksSorted.reverse = !state.bookmarksSorted.reverse;
+      } else {
+        // sorting array
+        state.bookmarksSorted.name = 'sortBookmarksByDate';
+        state.bookmarks.sort((a, b) => {
+          const first = new Date(a.addingDate);
+          const second = new Date(b.addingDate);
+          return first - second;
+        });
+
+        // if array was altered during reversed sorting, implement reversed filter again
+        if (state.bookmarksSorted.reverse) state.bookmarks.reverse();
+      }
+    },
+
+    sortBookmarksByActivity(state) {
+      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== 'sortBookmarksByActivity') {
+        state.bookmarksSorted.reverse = false;
+      }
+
+      // check if array has been already sorted by date and only reversing is needed
+      if (state.bookmarksSorted.name === 'sortBookmarksByActivity') {
+        state.bookmarks.reverse();
+        state.bookmarksSorted.reverse = !state.bookmarksSorted.reverse;
+      } else {
+        // sorting array
+        state.bookmarksSorted.name = 'sortBookmarksByActivity';
+        state.bookmarks.sort((a, b) => {
+          const first = (new Date() - new Date(a.addingDate) / a.hits);
+          const second = (new Date() - new Date(b.addingDate) / b.hits);
+          return second - first;
         });
 
         // if array was altered during reversed sorting, implement reversed filter again
