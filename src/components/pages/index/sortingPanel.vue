@@ -28,7 +28,7 @@ import store from '@/store/index';
 export default {
   methods: {
     sortBookmarks(mode) {
-      store.commit(mode);
+      store.commit('sortBookmarks', mode);
     },
   },
 };
