@@ -8,18 +8,22 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     bookmarks: BOOKMARKS_STORE,
+    bookmarksForSearch: [],
     bookmarksSorted: {
       name: '',
       reverse: false,
     },
+    searchInput: '',
     addMode: false,
     editMode: false,
     errorMessageVisible: false,
-    bookmarkName: '',
-    bookmarkUrl: '',
-    bookmarkHits: 0,
-    bookmarkAddingDate: '',
-    bookmarkId: null,
+    bookmarkCache: {
+      name: '',
+      url: '',
+      hits: 0,
+      addingDate: '',
+      id: null,
+    },
   },
 
   mutations: {
@@ -38,60 +42,69 @@ export default new Vuex.Store({
     },
 
     // setters
+    updateSearchInput(state, text) {
+      state.searchInput = text;
+    },
+
     updateBookmarkName(state, name) {
-      state.bookmarkName = name;
+      state.bookmarkCache.name = name;
     },
 
     updateBookmarkUrl(state, url) {
-      state.bookmarkUrl = url;
+      state.bookmarkCache.url = url;
     },
 
     // incrementing hits of an item when its link is hit
-    incrementHits(state, index) {
-      state.bookmarks[index].hits += 1;
+    incrementHits(state, n) {
+      state.bookmarks.find((item) => item.id === parseInt(n, 10)).id += 1;
     },
 
     // adding and resetting item-cash properties
-    setNameUrlId(state, n) {
-      state.bookmarkName = state.bookmarks[n].name;
-      state.bookmarkUrl = state.bookmarks[n].url;
-      state.bookmarkHits = state.bookmarks[n].hits;
-      state.bookmarkAddingDate = state.bookmarks[n].addingDate;
-      state.bookmarkId = n;
+    setBookmarkCache(state, n) {
+      const targetArr = (state.searchInput.length > 0) ? state.bookmarksForSearch : state.bookmarks;
+      state.bookmarkCache = { ...targetArr.find((item) => item.id === parseInt(n, 10)) };
     },
 
-    resetNameUrlId(state) {
-      state.bookmarkName = '';
-      state.bookmarkUrl = '';
-      state.bookmarkHits = 0;
-      state.bookmarkAddingDate = '';
-      state.bookmarkId = null;
+    resetBookmarkCache(state) {
+      state.bookmarkCache = {
+        name: '',
+        url: '',
+        hits: 0,
+        AddingDate: '',
+        id: null,
+      };
     },
 
-    // correcting url
+    // correcting url if need be
     checkHttp(state) {
       const check = /^http:\/\/|^https:\/\//i;
       const check2 = /\/$/;
-      if (!check.test(state.bookmarkUrl)) {
-        state.bookmarkUrl = `http://${state.bookmarkUrl}`;
+      if (!check.test(state.bookmarkCache.url)) {
+        state.bookmarkCache.url = `http://${state.bookmarkCache.url}`;
       }
-      if (!check2.test(state.bookmarkUrl)) {
-        state.bookmarkUrl = `${state.bookmarkUrl}/`;
+      if (!check2.test(state.bookmarkCache.url)) {
+        state.bookmarkCache.url = `${state.bookmarkCache.url}/`;
       }
     },
 
     // adding new or edited bookmark to array
     addBookmarkObj(state, n) {
-      const bookmarksObj = {
-        name: state.bookmarkName,
-        url: state.bookmarkUrl.trim(),
-        hits: state.bookmarkHits,
-      };
+      // function to get first free id
+      function getId(id) {
+        const nextId = id + 1;
+        const check = state.bookmarks.find((item) => item.id === id);
+        return (check === undefined) ? id : getId(nextId);
+      }
+      // creating object from cache
+      const bookmarksObj = { ...state.bookmarkCache };
+
       if (state.editMode) {
-        bookmarksObj.addingDate = state.bookmarkAddingDate;
-        state.bookmarks.splice(n, 1, bookmarksObj);
+        const itemPlace = state.bookmarks.findIndex((item) => item.id === parseInt(n, 10));
+        state.bookmarks = state.bookmarks.filter((item) => item.id !== parseInt(n, 10));
+        state.bookmarks.splice(itemPlace, 0, bookmarksObj);
       }
       if (state.addMode) {
+        bookmarksObj.id = getId(0);
         bookmarksObj.addingDate = new Date().toJSON();
         state.bookmarks.unshift(bookmarksObj);
       }
@@ -102,92 +115,82 @@ export default new Vuex.Store({
       if (state.bookmarksSorted.name) state.bookmarksSorted.name = '';
     },
 
-    sortBookmarksByName(state) {
+    sortBookmarks(state, mode) {
       // remove reverse-mode if sorting option was altered
-      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== 'sortBookmarksByName') {
+      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== mode) {
         state.bookmarksSorted.reverse = false;
       }
 
-      // check if array has been already sorted by name and only reversing is needed
-      if (state.bookmarksSorted.name === 'sortBookmarksByName') {
+      // chek if array has been already sorted and only reversing is needed
+      if (state.bookmarksSorted.name === mode) {
         state.bookmarks.reverse();
         state.bookmarksSorted.reverse = !state.bookmarksSorted.reverse;
       } else {
         // sorting array
-        state.bookmarksSorted.name = 'sortBookmarksByName';
-        state.bookmarks.sort((a, b) => {
-          if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
-          if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-          return 0;
-        });
-
-        // if array was altered during reversed sorting, implement reversed filter again
-        if (state.bookmarksSorted.reverse) state.bookmarks.reverse();
+        switch (mode) {
+          case 'sortBookmarksByName':
+            state.bookmarksSorted.name = 'sortBookmarksByName';
+            state.bookmarks.sort((a, b) => {
+              if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+              if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+              return 0;
+            });
+            break;
+          case 'sortBookmarksByDate':
+            state.bookmarksSorted.name = 'sortBookmarksByDate';
+            state.bookmarks.sort((a, b) => {
+              const first = new Date(a.addingDate);
+              const second = new Date(b.addingDate);
+              return first - second;
+            });
+            break;
+          case 'sortBookmarksByActivity':
+            state.bookmarksSorted.name = 'sortBookmarksByActivity';
+            state.bookmarks.sort((a, b) => {
+              const first = (new Date() - new Date(a.addingDate) / a.hits);
+              const second = (new Date() - new Date(b.addingDate) / b.hits);
+              return second - first;
+            });
+            break;
+          default:
+            break;
+        }
       }
     },
 
-    sortBookmarksByDate(state) {
-      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== 'sortBookmarksByDate') {
-        state.bookmarksSorted.reverse = false;
-      }
-
-      // check if array has been already sorted by date and only reversing is needed
-      if (state.bookmarksSorted.name === 'sortBookmarksByDate') {
-        state.bookmarks.reverse();
-        state.bookmarksSorted.reverse = !state.bookmarksSorted.reverse;
-      } else {
-        // sorting array
-        state.bookmarksSorted.name = 'sortBookmarksByDate';
-        state.bookmarks.sort((a, b) => {
-          const first = new Date(a.addingDate);
-          const second = new Date(b.addingDate);
-          return first - second;
-        });
-
-        // if array was altered during reversed sorting, implement reversed filter again
-        if (state.bookmarksSorted.reverse) state.bookmarks.reverse();
-      }
+    // searching algorithm
+    searchBookmark(state) {
+      state.bookmarksForSearch = state.bookmarks;
+      state.bookmarksForSearch = state.bookmarks.filter((item) => item.name.toLowerCase()
+        .indexOf(state.searchInput.toLowerCase()) > -1);
     },
 
-    sortBookmarksByActivity(state) {
-      if (state.bookmarksSorted.name.length > 0 && state.bookmarksSorted.name !== 'sortBookmarksByActivity') {
-        state.bookmarksSorted.reverse = false;
-      }
-
-      // check if array has been already sorted by date and only reversing is needed
-      if (state.bookmarksSorted.name === 'sortBookmarksByActivity') {
-        state.bookmarks.reverse();
-        state.bookmarksSorted.reverse = !state.bookmarksSorted.reverse;
-      } else {
-        // sorting array
-        state.bookmarksSorted.name = 'sortBookmarksByActivity';
-        state.bookmarks.sort((a, b) => {
-          const first = (new Date() - new Date(a.addingDate) / a.hits);
-          const second = (new Date() - new Date(b.addingDate) / b.hits);
-          return second - first;
-        });
-
-        // if array was altered during reversed sorting, implement reversed filter again
-        if (state.bookmarksSorted.reverse) state.bookmarks.reverse();
+    deleteBookmark(state, n) {
+      state.bookmarks = state.bookmarks.filter((item) => item.id !== parseInt(n, 10));
+      if (state.searchInput.length > 0) {
+        state.bookmarksForSearch = state.bookmarksForSearch
+          .filter((item) => item.id !== parseInt(n, 10));
       }
     },
   },
 
   actions: {
     // item-menu button actions
+
     deleteBookmark(context, n) {
-      context.state.bookmarks.splice(n, 1);
+      context.commit('deleteBookmark', n);
     },
 
     copyUrl(context, n) {
-      navigator.clipboard.writeText(context.state.bookmarks[n].url);
+      navigator.clipboard.writeText(context.state.bookmarks
+        .find((item) => item.id === parseInt(n, 10)).url);
     },
 
     editBookmark(context, n) {
       if (!context.state.addMode && !context.state.editMode) {
         if (context.state.errorMessageVisible) context.commit('toggleErrorMessage');
         context.commit('toggleEditMode');
-        context.commit('setNameUrlId', n);
+        context.commit('setBookmarkCache', n);
       }
     },
 
@@ -195,14 +198,14 @@ export default new Vuex.Store({
       if (!context.state.addMode && !context.state.editMode) {
         if (context.state.errorMessageVisible) context.commit('toggleErrorMessage');
         context.commit('toggleAddMode');
-        context.commit('resetNameUrlId');
+        context.commit('resetBookmarkCache');
       }
     },
 
     // Main Action(add or edit)
     submitBookmark(context, n) {
       // input validation
-      if (!context.state.bookmarkName || !context.state.bookmarkUrl) {
+      if (!context.state.bookmarkCache.name || !context.state.bookmarkCache.url) {
         if (!context.state.errorMessageVisible) context.commit('toggleErrorMessage');
         return;
       }
@@ -212,7 +215,7 @@ export default new Vuex.Store({
       context.commit('addBookmarkObj', n);
 
       // resetting errors and modes
-      context.commit('resetNameUrlId');
+      context.commit('resetBookmarkCache');
       if (context.state.errorMessageVisible) context.commit('toggleErrorMessage');
       if (context.state.editMode) context.commit('toggleEditMode');
       if (context.state.addMode) context.commit('toggleAddMode');
@@ -221,7 +224,12 @@ export default new Vuex.Store({
       if (context.state.bookmarksSorted.name) {
         const sortMode = context.state.bookmarksSorted.name;
         context.commit('resetSorting');
-        context.commit(sortMode);
+        context.commit('sortBookmarks', sortMode);
+      }
+
+      // relaunching search to include new or altered bookmark if search field is not empty
+      if (context.state.searchInput.length > 0) {
+        context.commit('searchBookmark');
       }
     },
   },

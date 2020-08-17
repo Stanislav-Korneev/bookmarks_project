@@ -39,7 +39,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
   padding: .5rem 2rem;
   width: 35rem;
   height: 5rem;

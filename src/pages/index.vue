@@ -14,11 +14,10 @@
           v-if="item"
           :key="index"
           v-bind="item"
-          :index="index"
         >
           <bookmarks-item-menu
             @menu-click="executeMenuButton"
-            :index="index"
+            :id="item.id"
           />
         </bookmarks-item>
       </template>
@@ -31,6 +30,8 @@
 </template>
 
 <script>
+/* eslint-disable max-len */
+
 import store from '@/store/index';
 
 import layoutHeader from '@/components/layout/header/layoutHeader.vue';
@@ -56,7 +57,7 @@ export default {
 
   computed: {
     bookmarks() {
-      return store.state.bookmarks;
+      return (store.state.searchInput.length > 0) ? store.state.bookmarksForSearch : store.state.bookmarks;
     },
     addMode() {
       return store.state.addMode;
@@ -71,8 +72,8 @@ export default {
       if (!this.addMode) store.dispatch('addBookmark');
     },
 
-    incrementHits(index) {
-      store.commit('incrementHits', index);
+    incrementHits(id) {
+      store.commit('incrementHits', id);
     },
 
     executeMenuButton(action) {

@@ -7,7 +7,7 @@
       />
     </div>
     <a
-      @click="incrementHits(index)"
+      @click="incrementHits(id)"
       class="bookmarks-item__link"
       :href="url"
       target="_blank"
@@ -33,7 +33,7 @@ export default {
       type: String,
       default: '',
     },
-    index: {
+    id: {
       type: Number,
       default: null,
     },
@@ -58,8 +58,8 @@ export default {
   },
 
   methods: {
-    incrementHits(index) {
-      this.$emit('increment-hits', index);
+    incrementHits(id) {
+      this.$emit('increment-hits', id);
     },
   },
 };

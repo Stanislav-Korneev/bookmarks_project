@@ -75,11 +75,11 @@ export default {
       return store.state.editMode;
     },
     bookmarkId() {
-      return store.state.bookmarkId;
+      return store.state.bookmarkCache.id;
     },
     bookmarkName: {
       get() {
-        return store.state.bookmarkName;
+        return store.state.bookmarkCache.name;
       },
       set(value) {
         store.commit('updateBookmarkName', value);
@@ -87,7 +87,7 @@ export default {
     },
     bookmarkUrl: {
       get() {
-        return store.state.bookmarkUrl;
+        return store.state.bookmarkCache.url;
       },
       set(value) {
         store.commit('updateBookmarkUrl', value);

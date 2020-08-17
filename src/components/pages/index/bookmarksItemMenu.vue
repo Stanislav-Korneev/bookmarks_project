@@ -13,7 +13,7 @@
         <li>
           <button
             @keyup.esc="closeMenu"
-            @click="menuClick(['deleteBookmark', `${index}`])"
+            @click="menuClick(['deleteBookmark', `${id}`])"
             class="menu__item"
           >
             delete
@@ -22,7 +22,7 @@
         <li>
           <button
             @keyup.esc="closeMenu"
-            @click="menuClick(['editBookmark', `${index}`])"
+            @click="menuClick(['editBookmark', `${id}`])"
             class="menu__item"
           >
             edit
@@ -31,7 +31,7 @@
         <li>
           <button
             @keyup.esc="closeMenu"
-            @click="menuClick(['copyUrl', `${index}`])"
+            @click="menuClick(['copyUrl', `${id}`])"
             class="menu__item"
           >
             copy url
@@ -52,7 +52,7 @@
 <script>
 export default {
   props: {
-    index: {
+    id: {
       type: Number,
       default: null,
     },
