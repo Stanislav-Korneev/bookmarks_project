@@ -8,7 +8,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     bookmarks: BOOKMARKS_STORE,
-    bookmarksForSearch: [],
     bookmarksSorted: {
       name: '',
       reverse: false,
@@ -61,8 +60,7 @@ export default new Vuex.Store({
 
     // adding and resetting item-cash properties
     setBookmarkCache(state, n) {
-      const targetArr = (state.searchInput.length > 0) ? state.bookmarksForSearch : state.bookmarks;
-      state.bookmarkCache = { ...targetArr.find((item) => item.id === parseInt(n, 10)) };
+      state.bookmarkCache = { ...state.bookmarks.find((item) => item.id === parseInt(n, 10)) };
     },
 
     resetBookmarkCache(state) {
@@ -158,19 +156,8 @@ export default new Vuex.Store({
       }
     },
 
-    // searching algorithm
-    searchBookmark(state) {
-      state.bookmarksForSearch = state.bookmarks;
-      state.bookmarksForSearch = state.bookmarks.filter((item) => item.name.toLowerCase()
-        .indexOf(state.searchInput.toLowerCase()) > -1);
-    },
-
     deleteBookmark(state, n) {
       state.bookmarks = state.bookmarks.filter((item) => item.id !== parseInt(n, 10));
-      if (state.searchInput.length > 0) {
-        state.bookmarksForSearch = state.bookmarksForSearch
-          .filter((item) => item.id !== parseInt(n, 10));
-      }
     },
   },
 
@@ -225,11 +212,6 @@ export default new Vuex.Store({
         const sortMode = context.state.bookmarksSorted.name;
         context.commit('resetSorting');
         context.commit('sortBookmarks', sortMode);
-      }
-
-      // relaunching search to include new or altered bookmark if search field is not empty
-      if (context.state.searchInput.length > 0) {
-        context.commit('searchBookmark');
       }
     },
   },

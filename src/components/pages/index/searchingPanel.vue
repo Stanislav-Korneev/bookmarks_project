@@ -8,7 +8,6 @@
     </label>
     <input
       v-model="searchInput"
-      @keyup="search"
       id="searching-input"
       class="searching-panel__input"
       type="text"
@@ -28,11 +27,6 @@ export default {
       set(value) {
         store.commit('updateSearchInput', value);
       },
-    },
-  },
-  methods: {
-    search() {
-      store.commit('searchBookmark');
     },
   },
 };

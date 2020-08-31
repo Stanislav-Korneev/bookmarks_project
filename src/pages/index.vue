@@ -61,7 +61,8 @@ export default {
 
   computed: {
     bookmarks() {
-      return (store.state.searchInput.length > 0) ? store.state.bookmarksForSearch : store.state.bookmarks;
+      // return (store.state.searchInput.length > 0) ? store.state.bookmarksForSearch : store.state.bookmarks;
+      return store.state.bookmarks.filter((item) => item.name.toLowerCase().indexOf(store.state.searchInput.toLowerCase()) > -1);
     },
     addMode() {
       return store.state.addMode;
