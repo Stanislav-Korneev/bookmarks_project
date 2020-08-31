@@ -4,20 +4,26 @@
       <searching-panel class="bookmarks__searching-panel"/>
       <sorting-panel class="bookmarks__sorting-panel" />
     </div>
-    <ul class="bookmarks__list">
+    <app-transition-group
+      name="change-list"
+      tag="ul"
+      class="bookmarks__list"
+    >
       <slot />
-    </ul>
+    </app-transition-group>
   </app-container>
 </template>
 
 <script>
 import AppContainer from '@/components/general/AppContainer.vue';
+import AppTransitionGroup from '@/components/general/AppTransitionGroup.vue';
 import searchingPanel from '@/components/pages/index/searchingPanel.vue';
 import sortingPanel from '@/components/pages/index/sortingPanel.vue';
 
 export default {
   components: {
     AppContainer,
+    AppTransitionGroup,
     searchingPanel,
     sortingPanel,
   },

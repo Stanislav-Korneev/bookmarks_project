@@ -8,17 +8,19 @@
     </app-modal>
     <layout-header />
     <bookmarks class="index-page__bookmarks">
-      <template v-for="(item, index) in bookmarks">
+      <template v-for="item in bookmarks">
         <bookmarks-item
           @increment-hits="incrementHits"
           v-if="item"
-          :key="index"
+          :key="item.id"
           v-bind="item"
         >
-          <bookmarks-item-menu
-            @menu-click="executeMenuButton"
-            :id="item.id"
-          />
+          <app-transition name="pop-menu">
+            <bookmarks-item-menu
+              @menu-click="executeMenuButton"
+              :id="item.id"
+            />
+          </app-transition>
         </bookmarks-item>
       </template>
     </bookmarks>
@@ -36,6 +38,7 @@ import store from '@/store/index';
 
 import layoutHeader from '@/components/layout/header/layoutHeader.vue';
 import AppModal from '@/components/general/AppModal.vue';
+import AppTransition from '@/components/general/AppTransition.vue';
 
 import bookmarksForm from '@/components/pages/index/bookmarkForm.vue';
 import bookmarks from '@/components/pages/index/bookmarks.vue';
@@ -48,6 +51,7 @@ export default {
   components: {
     layoutHeader,
     AppModal,
+    AppTransition,
     bookmarksForm,
     bookmarks,
     bookmarksItem,

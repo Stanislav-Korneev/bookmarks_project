@@ -71,7 +71,7 @@ export default {
       background-color: $darkBlue;
       background-position: 1rem, center;
       color: $white;
-      //transition: width 1s, background-color 1s, border-radius 1s;
+      //transition: width 1s, background-color 1s, border-radius 10s;
     }
   }
 }

@@ -6,38 +6,40 @@
         @click="toggleMenu"
         class="menu__button"
       />
-      <ul
-        v-if="menuVisible"
-        class="menu__content"
-      >
-        <li>
-          <button
-            @keyup.esc="closeMenu"
-            @click="menuClick(['deleteBookmark', `${id}`])"
-            class="menu__item"
-          >
-            delete
-          </button>
-        </li>
-        <li>
-          <button
-            @keyup.esc="closeMenu"
-            @click="menuClick(['editBookmark', `${id}`])"
-            class="menu__item"
-          >
-            edit
-          </button>
-        </li>
-        <li>
-          <button
-            @keyup.esc="closeMenu"
-            @click="menuClick(['copyUrl', `${id}`])"
-            class="menu__item"
-          >
-            copy url
-          </button>
-        </li>
-      </ul>
+      <app-transition name="fade">
+        <ul
+          v-if="menuVisible"
+          class="menu__content"
+        >
+          <li>
+            <button
+              @keyup.esc="closeMenu"
+              @click="menuClick(['deleteBookmark', `${id}`])"
+              class="menu__item"
+            >
+              delete
+            </button>
+          </li>
+          <li>
+            <button
+              @keyup.esc="closeMenu"
+              @click="menuClick(['editBookmark', `${id}`])"
+              class="menu__item"
+            >
+              edit
+            </button>
+          </li>
+          <li>
+            <button
+              @keyup.esc="closeMenu"
+              @click="menuClick(['copyUrl', `${id}`])"
+              class="menu__item"
+            >
+              copy url
+            </button>
+          </li>
+        </ul>
+      </app-transition>
     </div>
     <div
       v-if="menuVisible"
@@ -50,7 +52,13 @@
 </template>
 
 <script>
+import AppTransition from '@/components/general/AppTransition.vue';
+
 export default {
+  components: {
+    AppTransition,
+  },
+
   props: {
     id: {
       type: Number,

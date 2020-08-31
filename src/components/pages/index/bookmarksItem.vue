@@ -1,5 +1,5 @@
 <template>
-  <li class="bookmarks-item" :title="titleHelp">
+  <li class="bookmarks-item">
     <div class="bookmarks-item__favicon">
       <img
         :src="favicon"
@@ -51,9 +51,6 @@ export default {
   computed: {
     favicon() {
       return `http://www.google.com/s2/favicons?domain_url=${this.url}`;
-    },
-    titleHelp() {
-      return `date: ${this.addingDate} chart: ${this.hits / (new Date() - new Date(this.addingDate))}`;
     },
   },
 
