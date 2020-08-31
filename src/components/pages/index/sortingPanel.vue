@@ -49,7 +49,10 @@ export default {
   color: $darkBlue;
 
   @include mobile {
-    width: 30rem;
+    margin-bottom: 1rem;
+    padding: .5rem 1rem;
+    width: 100%;
+    max-width: 35rem;
     font-size: 1.2rem;
   }
 

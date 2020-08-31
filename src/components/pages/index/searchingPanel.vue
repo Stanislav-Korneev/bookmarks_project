@@ -43,29 +43,39 @@ export default {
     padding: 1rem;
     width: 4rem;
     height: 4rem;
-    border-radius: 50%;
+    border-radius: 2rem;
     border: .2rem solid $darkBlue;
     outline: none;
     background-color: $blueTransparent;
     background-size: 2rem;
-    background-position: center;
+    background-position: .8rem, center;
     background-image: url("../../../assets/ico/search.png");
     background-repeat: no-repeat;
     color: transparent;
     font-size: 1.7rem;
     letter-spacing: .1rem;
-    transition: width .7s, background-color 1s, border-radius .1s;
-    transition-timing-function: ease-out;
+    transition: width 1s, background-color 1.5s, background-position 0s;
+
+    @include mobile {
+      width: 3.5rem;
+      height: 3.5rem;
+      background-position: .6rem center;
+      font-size: 1.4rem;
+    }
 
     &:hover,
     &:focus {
       padding-left: 3.5rem;
-      width: 30rem;
-      border-radius: 3rem;
+      width: 25rem;
+      border-radius: 2rem;
+      border: none;
       background-color: $darkBlue;
       background-position: 1rem, center;
       color: $white;
-      //transition: width 1s, background-color 1s, border-radius 10s;
+
+      @include mobile {
+        width: 100%;
+      }
     }
   }
 }

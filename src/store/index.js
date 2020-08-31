@@ -55,7 +55,7 @@ export default new Vuex.Store({
 
     // incrementing hits of an item when its link is hit
     incrementHits(state, n) {
-      state.bookmarks.find((item) => item.id === parseInt(n, 10)).id += 1;
+      state.bookmarks.find((item) => item.id === parseInt(n, 10)).hits += 1;
     },
 
     // adding and resetting item-cash properties

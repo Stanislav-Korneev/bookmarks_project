@@ -38,7 +38,19 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem 10% 0 15%;
+    padding: 2rem 10% 0 calc(10% + 2rem);
+
+    @include mobile() {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      padding: 2rem 2rem 0 2rem;
+    }
+
+    .bookmarks__sorting-panel {
+      @include mobile {
+        align-self: flex-end;
+      }
+    }
   }
 
   &__searching-panel {
@@ -59,7 +71,7 @@ export default {
     padding: 3rem 10% 17rem 10%;
 
     @include mobile {
-      padding: 2.5rem 5% 10rem 5%;
+      padding: 1rem 5% 10rem 5%;
     }
   }
 }
