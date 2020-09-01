@@ -140,7 +140,7 @@ export default new Vuex.Store({
             state.bookmarks.sort((a, b) => {
               const first = new Date(a.addingDate);
               const second = new Date(b.addingDate);
-              return first - second;
+              return second - first;
             });
             break;
           case 'sortBookmarksByActivity':
