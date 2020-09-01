@@ -16,6 +16,7 @@ export default new Vuex.Store({
     addMode: false,
     editMode: false,
     errorMessageVisible: false,
+    notification: '',
     bookmarkCache: {
       name: '',
       url: '',
@@ -159,6 +160,14 @@ export default new Vuex.Store({
     deleteBookmark(state, n) {
       state.bookmarks = state.bookmarks.filter((item) => item.id !== parseInt(n, 10));
     },
+
+    showNotification(state, message) {
+      state.notification = message;
+      function disableNotification() {
+        state.notification = '';
+      }
+      setTimeout(disableNotification, 3000);
+    },
   },
 
   actions: {
@@ -166,11 +175,13 @@ export default new Vuex.Store({
 
     deleteBookmark(context, n) {
       context.commit('deleteBookmark', n);
+      context.commit('showNotification', 'Bookmark successfully deleted');
     },
 
     copyUrl(context, n) {
       navigator.clipboard.writeText(context.state.bookmarks
         .find((item) => item.id === parseInt(n, 10)).url);
+      context.commit('showNotification', 'Bookmark url copied');
     },
 
     editBookmark(context, n) {
@@ -200,6 +211,11 @@ export default new Vuex.Store({
 
       // adding object to array
       context.commit('addBookmarkObj', n);
+
+      // showing notification
+      const message = context.state.addMode ? 'Bookmark successfully added'
+        : 'Bookmark successfully edited';
+      context.commit('showNotification', message);
 
       // resetting errors and modes
       context.commit('resetBookmarkCache');

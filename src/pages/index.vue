@@ -6,6 +6,7 @@
     >
       <bookmarks-form @close-modal="closeModal" />
     </app-modal>
+    <notification class="index-page__notification" />
     <layout-header />
     <bookmarks class="index-page__bookmarks">
       <template v-for="item in bookmarks">
@@ -15,12 +16,10 @@
           :key="item.id"
           v-bind="item"
         >
-          <app-transition name="pop-menu">
-            <bookmarks-item-menu
-              @menu-click="executeMenuButton"
-              :id="item.id"
-            />
-          </app-transition>
+          <bookmarks-item-menu
+            @menu-click="executeMenuButton"
+            :id="item.id"
+          />
         </bookmarks-item>
       </template>
     </bookmarks>
@@ -38,8 +37,8 @@ import store from '@/store/index';
 
 import layoutHeader from '@/components/layout/header/layoutHeader.vue';
 import AppModal from '@/components/general/AppModal.vue';
-import AppTransition from '@/components/general/AppTransition.vue';
 
+import notification from '@/components/pages/index/notification.vue';
 import bookmarksForm from '@/components/pages/index/bookmarkForm.vue';
 import bookmarks from '@/components/pages/index/bookmarks.vue';
 import bookmarksItem from '@/components/pages/index/bookmarksItem.vue';
@@ -51,7 +50,7 @@ export default {
   components: {
     layoutHeader,
     AppModal,
-    AppTransition,
+    notification,
     bookmarksForm,
     bookmarks,
     bookmarksItem,
@@ -94,10 +93,16 @@ export default {
 </script>
 <style lang="scss" scoped>
 .index-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  &__notification {
+    position: fixed;
+    top: 1.5vh;
+  }
 
   &__bookmarks {
     width: 100%;
