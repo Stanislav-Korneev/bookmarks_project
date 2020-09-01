@@ -4,18 +4,21 @@
   <button
     @click="sortBookmarks('sortBookmarksByName')"
     class="sorting-panel__button"
+    :class="{'sorting-panel__button_selected': sortMode === 'sortBookmarksByName'}"
   >
     Name
   </button>
   <button
     @click="sortBookmarks('sortBookmarksByDate')"
     class="sorting-panel__button"
+    :class="{'sorting-panel__button_selected': sortMode === 'sortBookmarksByDate'}"
   >
     Date
   </button>
   <button
     @click="sortBookmarks('sortBookmarksByActivity')"
     class="sorting-panel__button"
+    :class="{'sorting-panel__button_selected': sortMode === 'sortBookmarksByActivity'}"
   >
     Activity
   </button>
@@ -26,6 +29,12 @@
 import store from '@/store/index';
 
 export default {
+  computed: {
+    sortMode() {
+      return store.state.bookmarksSorted.name;
+    },
+  },
+
   methods: {
     sortBookmarks(mode) {
       store.commit('sortBookmarks', mode);
@@ -65,14 +74,18 @@ export default {
     background-color: $blueTransparent;
     color: $darkBlue;
 
+    &_selected {
+      background-color: $blue;
+      color: $white;
+    }
+
     @include mobile {
       width: 6.5rem;
     }
 
     &:focus {
       outline: none;
-      background-color: $blue;
-      color: $white;
+      border: .1rem solid $blue;
     }
 
     &:active {
