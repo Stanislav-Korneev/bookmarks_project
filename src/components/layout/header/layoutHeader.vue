@@ -12,16 +12,17 @@
   align-items: center;
   width: 100vw;
   max-width: 100%;
-  min-height: 10rem;
+  min-height: 7rem;
   background-color: $blue;
   font-size: 4rem;
   font-weight: normal;
-  box-shadow: 0 .2rem 3rem $blueGray;
+  box-shadow: 0 .2rem 2rem $blueGray;
   color: $white;
   cursor: default;
 
   @include mobile {
-    min-height: 8rem;
+    min-height: 6rem;
+    box-shadow: 0 .2rem 1rem $blueGray;
     font-size: 3rem;
   }
 
