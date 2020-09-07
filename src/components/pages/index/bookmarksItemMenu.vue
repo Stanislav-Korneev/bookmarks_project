@@ -109,7 +109,6 @@ export default {
   &__button {
     @include button-reset;
 
-    //position: relative;
     width: 1.5rem;
     height: 1.5rem;
     background-position: center;

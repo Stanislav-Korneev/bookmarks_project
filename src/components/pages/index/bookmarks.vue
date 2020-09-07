@@ -53,19 +53,6 @@ export default {
     }
   }
 
-  &__searching-panel {
-
-  }
-
-  &__sorting-panel {
-    //margin-left: auto;
-    //margin-right: 10%;
-
-    @include mobile {
-      //margin-right: auto;
-    }
-  }
-
   &__list {
     @include ul-reset;
     padding: 3rem 10% 17rem 10%;

@@ -31,8 +31,6 @@
 </template>
 
 <script>
-/* eslint-disable max-len */
-
 import store from '@/store/index';
 
 import layoutHeader from '@/components/layout/header/layoutHeader.vue';
@@ -46,7 +44,6 @@ import bookmarksItemMenu from '@/components/pages/index/bookmarksItemMenu.vue';
 import addButton from '@/components/pages/index/addButton.vue';
 
 export default {
-  // name: 'Home',
   components: {
     layoutHeader,
     AppModal,
@@ -60,8 +57,8 @@ export default {
 
   computed: {
     bookmarks() {
-      // return (store.state.searchInput.length > 0) ? store.state.bookmarksForSearch : store.state.bookmarks;
-      return store.state.bookmarks.filter((item) => item.name.toLowerCase().indexOf(store.state.searchInput.toLowerCase()) > -1);
+      return store.state.bookmarks.filter((item) => item.name.toLowerCase()
+        .indexOf(store.state.searchInput.toLowerCase()) > -1);
     },
     addMode() {
       return store.state.addMode;

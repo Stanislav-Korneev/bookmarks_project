@@ -10,6 +10,7 @@
       v-model="searchInput"
       id="searching-input"
       class="searching-panel__input"
+      :class="{'searching-panel__input_active': searchInput.length > 0}"
       type="text"
     />
   </div>
@@ -63,13 +64,14 @@ export default {
       font-size: 1.4rem;
     }
 
+    &_active,
     &:hover,
     &:focus {
       padding-left: 3.5rem;
       width: 25rem;
       border-radius: 2rem;
       border: none;
-      background-color: $darkBlue;
+      background-color: $blue;
       background-position: 1rem, center;
       color: $white;
 
